@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout
+from PyQt5.QtWidgets import QApplication, QLineEdit, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout, QComboBox
 from PyQt5.QtGui import QPixmap
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QCursor
@@ -11,6 +11,7 @@ widgets = {
     "trackSelectPrompt": [],
     "timeEntryPrompt": [],
     "trackCombobox": [],
+    "submittedTime": []
 }
 
 app = QApplication(sys.argv)
@@ -56,7 +57,7 @@ def timeEntryFrame():
     widgets["trackSelectPrompt"].append(trackSelectPrompt)
 
     # The combobox will go here
-    trackCombobox = Qt.ComboBox()
+    trackCombobox = QComboBox()
     trackCombobox.addItem("Mettet, Belgium")
     trackCombobox.addItem("Trois-Rivières, Canada")
     trackCombobox.addItem("Lydden Hill, England")
@@ -68,6 +69,8 @@ def timeEntryFrame():
     trackCombobox.addItem("Circuit de Barcelona-Catalunya, Spain")
     trackCombobox.addItem("Höljes, Sweden")
     trackCombobox.addItem("Yas Marina Circuit, Abu Dhabi")
+## need to append as well
+    widgets["trackCombobox"].append(trackCombobox)
 
 
     # The user prompt for the track selection will go here
@@ -81,13 +84,19 @@ def timeEntryFrame():
     widgets["timeEntryPrompt"].append(timeEntryPrompt)
 
     # The time entry widget will go here
-
+    submittedTime = QLineEdit()
+    submittedTime.setAlignment(QtCore.Qt.AlignCenter)
+    submittedTime.resize(600, 30)
+    widgets["submittedTime"].append(submittedTime)
 
     # QLabelvar, row pos, column pos
     grid.addWidget(widgets["logo"][-1], 0, 0)
     grid.addWidget(widgets["trackSelectPrompt"][-1], 2, 0)
+    grid.addWidget(widgets["trackCombobox"][-1], 3, 0)
     grid.addWidget(widgets["timeEntryPrompt"][-1], 4, 0)
-    grid.addWidget(widgets["button"][-1], 5, 0)
+    grid.addWidget(widgets["submittedTime"][-1], 5, 0)
+    grid.addWidget(widgets["button"][-1], 6, 0)
+
 timeEntryFrame()
 
 # This will be the frame your are taken to after you submit your time
