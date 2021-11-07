@@ -8,7 +8,9 @@ widgets = {
     "logo": [],
     "button": [],
     "leaderboard": [],
-    "trackSelectPrompt": []
+    "trackSelectPrompt": [],
+    "timeEntryPrompt": [],
+    "trackCombobox": [],
 }
 
 app = QApplication(sys.argv)
@@ -52,11 +54,40 @@ def timeEntryFrame():
         "margin: 5px 100px;"
     )
     widgets["trackSelectPrompt"].append(trackSelectPrompt)
+
+    # The combobox will go here
+    trackCombobox = Qt.ComboBox()
+    trackCombobox.addItem("Mettet, Belgium")
+    trackCombobox.addItem("Trois-Rivières, Canada")
+    trackCombobox.addItem("Lydden Hill, England")
+    trackCombobox.addItem("Silverstone, England")
+    trackCombobox.addItem("Lohéac, France")
+    trackCombobox.addItem("Hell, Norway")
+    trackCombobox.addItem("Montalegre, Portugal")
+    trackCombobox.addItem("Killarney International Raceway, South Africa")
+    trackCombobox.addItem("Circuit de Barcelona-Catalunya, Spain")
+    trackCombobox.addItem("Höljes, Sweden")
+    trackCombobox.addItem("Yas Marina Circuit, Abu Dhabi")
+
+
+    # The user prompt for the track selection will go here
+    timeEntryPrompt = QLabel("Enter your lap time below")
+    timeEntryPrompt.setAlignment(QtCore.Qt.AlignCenter)
+    timeEntryPrompt.setStyleSheet(
+    "font-size: 27px;"+
+    "color: 'white';"+
+    "margin: 5px 100px;"
+    )
+    widgets["timeEntryPrompt"].append(timeEntryPrompt)
+
+    # The time entry widget will go here
+
+
     # QLabelvar, row pos, column pos
     grid.addWidget(widgets["logo"][-1], 0, 0)
+    grid.addWidget(widgets["trackSelectPrompt"][-1], 2, 0)
+    grid.addWidget(widgets["timeEntryPrompt"][-1], 4, 0)
     grid.addWidget(widgets["button"][-1], 5, 0)
-    grid.addWidget(widgets["trackSelectPrompt"][-1], 1, 0)
-
 timeEntryFrame()
 
 # This will be the frame your are taken to after you submit your time
