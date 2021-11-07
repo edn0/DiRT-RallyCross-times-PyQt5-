@@ -23,6 +23,22 @@ window.setStyleSheet("background: #999999;")
 grid = QGridLayout()
 window.setLayout(grid)
 
+def clear_widgets():
+    for widget in widgets:
+        if widgets[widget] != []:
+            widgets[widget][-1].hide()
+        for i in range(0, len(widgets[widget])):
+            widgets[widget].pop()
+
+
+def show_timeEntryFrame():
+    clear_widgets()
+    timeEntryFrame()
+
+def show_scoreboardFrame():
+    clear_widgets()
+    scoreboardFrame()
+
 def timeEntryFrame():
     # Display logo
     image = QPixmap("logo.png")
@@ -35,6 +51,7 @@ def timeEntryFrame():
     # Button widget
     button = QPushButton("Add time")
     button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+    button.clicked.connect(show_scoreboardFrame)
     button.setStyleSheet(
     "*{border: 4px solid '#ff0505';"+
     "border-radius:15px;"+
@@ -69,7 +86,6 @@ def timeEntryFrame():
     trackCombobox.addItem("Circuit de Barcelona-Catalunya, Spain")
     trackCombobox.addItem("Höljes, Sweden")
     trackCombobox.addItem("Yas Marina Circuit, Abu Dhabi")
-## need to append as well
     widgets["trackCombobox"].append(trackCombobox)
 
 
@@ -97,7 +113,9 @@ def timeEntryFrame():
     grid.addWidget(widgets["submittedTime"][-1], 5, 0)
     grid.addWidget(widgets["button"][-1], 6, 0)
 
-timeEntryFrame()
+show_timeEntryFrame()
+
+
 
 # This will be the frame your are taken to after you submit your time
 def scoreboardFrame():
