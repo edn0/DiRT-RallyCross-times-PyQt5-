@@ -1,6 +1,6 @@
 # This will be used to store data that would take unnecessary space on the main app
 
-tracks = [
+trackList = [
     "Mettet, Belgium", #0
     "Trois-Rivières, Canada", #1
     "Lydden Hill, England", #2

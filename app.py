@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QLineEdit, QLabel, QPushButton, QVBoxL
 from PyQt5.QtGui import QPixmap
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QCursor
+from data import trackList
 
 widgets = {
     "logo": [],
@@ -11,7 +12,8 @@ widgets = {
     "trackSelectPrompt": [],
     "timeEntryPrompt": [],
     "trackCombobox": [],
-    "submittedTime": []
+    "submittedTime": [],
+    "backButton": []
 }
 
 app = QApplication(sys.argv)
@@ -45,7 +47,7 @@ def timeEntryFrame():
     logo = QLabel()
     logo.setPixmap(image)
     logo.setAlignment(QtCore.Qt.AlignLeft)
-    logo.setStyleSheet("margin-bottom: 100px;")
+    logo.setStyleSheet("margin-bottom: 10px;")
     widgets["logo"].append(logo)
 
     # Button widget
@@ -57,6 +59,7 @@ def timeEntryFrame():
     "border-radius:15px;"+
     "font-size: 27px;"+
     "margin: 20px 200px;"+
+    "background-color: 'grey';"+
     "color: 'white'}"+
     "*:hover{background: '#ff0505';"+
     "font-size: 30px;}"
@@ -75,17 +78,17 @@ def timeEntryFrame():
 
     # The combobox will go here
     trackCombobox = QComboBox()
-    trackCombobox.addItem("Mettet, Belgium")
-    trackCombobox.addItem("Trois-Rivières, Canada")
-    trackCombobox.addItem("Lydden Hill, England")
-    trackCombobox.addItem("Silverstone, England")
-    trackCombobox.addItem("Lohéac, France")
-    trackCombobox.addItem("Hell, Norway")
-    trackCombobox.addItem("Montalegre, Portugal")
-    trackCombobox.addItem("Killarney International Raceway, South Africa")
-    trackCombobox.addItem("Circuit de Barcelona-Catalunya, Spain")
-    trackCombobox.addItem("Höljes, Sweden")
-    trackCombobox.addItem("Yas Marina Circuit, Abu Dhabi")
+    trackCombobox.addItems(trackList)
+    trackCombobox.setStyleSheet(
+    "QComboBox {combobox-popup: 0; "+
+    "border: 2px solid '#ff0505';"+
+    "border-radius: 10px;"+
+    "padding: 2px 5px;"+
+    "margin: 2px 190px;"+
+    "selection-color: 'white';"+
+    "background-color: 'white';}"
+    )
+    trackCombobox.setMaxVisibleItems(11)
     widgets["trackCombobox"].append(trackCombobox)
 
 
@@ -103,15 +106,22 @@ def timeEntryFrame():
     submittedTime = QLineEdit()
     submittedTime.setAlignment(QtCore.Qt.AlignCenter)
     submittedTime.resize(600, 30)
+    submittedTime.setStyleSheet(
+    "border: 2px solid '#ff0505';"+
+    "border-radius: 10px;"+
+    "padding: 2px 4px;"+
+    "margin: 1px 260px;"+
+    "background-color: 'white';"
+    )
     widgets["submittedTime"].append(submittedTime)
 
     # QLabelvar, row pos, column pos
     grid.addWidget(widgets["logo"][-1], 0, 0)
-    grid.addWidget(widgets["trackSelectPrompt"][-1], 2, 0)
-    grid.addWidget(widgets["trackCombobox"][-1], 3, 0)
-    grid.addWidget(widgets["timeEntryPrompt"][-1], 4, 0)
-    grid.addWidget(widgets["submittedTime"][-1], 5, 0)
-    grid.addWidget(widgets["button"][-1], 6, 0)
+    grid.addWidget(widgets["trackSelectPrompt"][-1], 1, 0)
+    grid.addWidget(widgets["trackCombobox"][-1], 2, 0)
+    grid.addWidget(widgets["timeEntryPrompt"][-1], 3, 0)
+    grid.addWidget(widgets["submittedTime"][-1], 4, 0)
+    grid.addWidget(widgets["button"][-1], 5, 0)
 
 show_timeEntryFrame()
 
@@ -128,7 +138,22 @@ def scoreboardFrame():
 
     )
     widgets["leaderboard"].append(leaderboard)
+# Button widget to go back to entry frame. Not working atm...
+    backButton = QPushButton("Back")
+    backButton.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+    backButton.clicked.connect(show_timeEntryFrame)
+    backButton.setStyleSheet(
+    "*{border: 4px solid '#ff0505';"+
+    "border-radius:15px;"+
+    "font-size: 27px;"+
+    "margin: 20px 200px;"+
+    "color: 'white'}"+
+    "*:hover{background: '#ff0505';"+
+    "font-size: 30px;}"
+    )
+    widgets["backButton"].append(backButton)
 
+    grid.addWidget(widgets["backButton"][-1], 2, 0)
     grid.addWidget(widgets["leaderboard"][-1], 1, 0, 2, 2)
 
 
