@@ -19,7 +19,7 @@ widgets = {
 app = QApplication(sys.argv)
 window = QWidget()
 window.setWindowTitle("DiRT RallyCross Lap Times")
-window.setFixedWidth(1000)
+window.setFixedWidth(800)
 window.setStyleSheet("background: #999999;")
 
 grid = QGridLayout()
@@ -84,7 +84,7 @@ def timeEntryFrame():
     "border: 2px solid '#ff0505';"+
     "border-radius: 10px;"+
     "padding: 2px 5px;"+
-    "margin: 2px 190px;"+
+    "margin: 2px 10px;"+
     "selection-color: 'white';"+
     "background-color: 'white';}"
     )
@@ -124,8 +124,6 @@ def timeEntryFrame():
     grid.addWidget(widgets["button"][-1], 5, 0)
 
 show_timeEntryFrame()
-
-
 
 # This will be the frame your are taken to after you submit your time
 def scoreboardFrame():
