@@ -1,3 +1,4 @@
+import csv
 import sys
 from PyQt5.QtWidgets import QApplication, QLineEdit, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout, QComboBox
 from PyQt5.QtGui import QPixmap
@@ -18,6 +19,8 @@ widgets = {
     "timeEntryButton": []
 }
 
+input = ""
+
 app = QApplication(sys.argv)
 window = QWidget()
 window.setWindowTitle("DiRT RallyCross Lap Times")
@@ -34,6 +37,13 @@ def clear_widgets():
         for i in range(0, len(widgets[widget])):
             widgets[widget].pop()
 
+
+def saveTime():
+    with open("times.csv", "w", newline="") as csvfile:
+        timeWriter = csv.writer(csvfile, delimiter=" ", quotechar="|", quoting=csv.QUOTE_MINIMAL)
+        timeWriter.writerow(["placeholder"])
+        timeWriter.writerow(["_________________"])
+        show_scoreboardFrame()
 
 def show_timeEntryFrame():
     clear_widgets()
@@ -55,7 +65,7 @@ def timeEntryFrame():
     # Button widget
     button = QPushButton("Add time")
     button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-    button.clicked.connect(show_scoreboardFrame)
+    button.clicked.connect(saveTime)
     button.setStyleSheet(
     "*{border: 4px solid '#ff0505';"+
     "border-radius:15px;"+
