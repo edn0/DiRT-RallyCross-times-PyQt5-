@@ -13,7 +13,9 @@ widgets = {
     "timeEntryPrompt": [],
     "trackCombobox": [],
     "submittedTime": [],
-    "backButton": []
+    "backButton": [],
+    "leaderboard_button": [],
+    "timeEntryButton": []
 }
 
 app = QApplication(sys.argv)
@@ -123,7 +125,40 @@ def timeEntryFrame():
     grid.addWidget(widgets["submittedTime"][-1], 4, 0)
     grid.addWidget(widgets["button"][-1], 5, 0)
 
-show_timeEntryFrame()
+# When starting up the software you will have the choice to submit time or access leaderboard
+def startFrame():
+    timeEntryButton = QPushButton("Add time")
+    timeEntryButton.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+    timeEntryButton.clicked.connect(show_timeEntryFrame)
+    timeEntryButton.setStyleSheet(
+    "*{border: 4px solid '#ff0505';"+
+    "border-radius:15px;"+
+    "font-size: 27px;"+
+    "margin: 20px 20px;"+
+    "color: 'white'}"+
+    "*:hover{background: '#ff0505';"+
+    "font-size: 30px;}"
+    )
+    widgets["timeEntryButton"].append(timeEntryButton)
+
+    leaderboard_button = QPushButton("Leaderboard")
+    leaderboard_button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
+    leaderboard_button.clicked.connect(show_scoreboardFrame)
+    leaderboard_button.setStyleSheet(
+    "*{border: 4px solid '#ff0505';"+
+    "border-radius:15px;"+
+    "font-size: 27px;"+
+    "margin: 20px 20px;"+
+    "color: 'white'}"+
+    "*:hover{background: '#ff0505';"+
+    "font-size: 30px;}"
+    )
+    widgets["leaderboard_button"].append(leaderboard_button)
+
+    grid.addWidget(widgets["timeEntryButton"][-1], 1, 1)
+    grid.addWidget(widgets["leaderboard_button"][-1], 1, 2)
+
+startFrame()
 
 # This will be the frame your are taken to after you submit your time
 def scoreboardFrame():
@@ -144,14 +179,14 @@ def scoreboardFrame():
     "*{border: 4px solid '#ff0505';"+
     "border-radius:15px;"+
     "font-size: 27px;"+
-    "margin: 20px 200px;"+
+    "margin: 20px 100px;"+
     "color: 'white'}"+
     "*:hover{background: '#ff0505';"+
     "font-size: 30px;}"
     )
     widgets["backButton"].append(backButton)
 
-    grid.addWidget(widgets["backButton"][-1], 2, 0)
+    grid.addWidget(widgets["backButton"][-1], 4, 0)
     grid.addWidget(widgets["leaderboard"][-1], 1, 0, 2, 2)
 
 
