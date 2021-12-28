@@ -24,8 +24,8 @@ input = ""
 app = QApplication(sys.argv)
 window = QWidget()
 window.setWindowTitle("DiRT RallyCross Lap Times")
-window.setFixedWidth(800)
-window.setStyleSheet("background: #999999;")
+window.setFixedWidth(600)
+window.setStyleSheet("background: #140202;")
 
 grid = QGridLayout()
 window.setLayout(grid)
@@ -67,14 +67,14 @@ def timeEntryFrame():
     button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
     button.clicked.connect(saveTime)
     button.setStyleSheet(
-    "*{border: 4px solid '#ff0505';"+
-    "border-radius:15px;"+
-    "font-size: 27px;"+
-    "margin: 20px 200px;"+
-    "background-color: 'grey';"+
-    "color: 'white'}"+
+    "*{border: 2px solid '#ff0505';"+
+    "border-radius:10px;"+
+    "font-size: 16px;"+
+    "margin: 10px 200px;"+
+    "background-color: '#cec8c8';"+
+    "color: 'black'}"+
     "*:hover{background: '#ff0505';"+
-    "font-size: 30px;}"
+    "font-size: 16px;}"
     )
     widgets["button"].append(button)
 
@@ -82,7 +82,7 @@ def timeEntryFrame():
     trackSelectPrompt = QLabel("Select your track")
     trackSelectPrompt.setAlignment(QtCore.Qt.AlignCenter)
     trackSelectPrompt.setStyleSheet(
-        "font-size: 27px;"+
+        "font-size: 22px;"+
         "color: 'white';"+
         "margin: 5px 100px;"
     )
@@ -98,7 +98,7 @@ def timeEntryFrame():
     "padding: 2px 5px;"+
     "margin: 2px 10px;"+
     "selection-color: 'white';"+
-    "background-color: 'white';}"
+    "background-color: '#cec8c8';}"
     )
     trackCombobox.setMaxVisibleItems(11)
     widgets["trackCombobox"].append(trackCombobox)
@@ -108,7 +108,7 @@ def timeEntryFrame():
     timeEntryPrompt = QLabel("Enter your lap time below")
     timeEntryPrompt.setAlignment(QtCore.Qt.AlignCenter)
     timeEntryPrompt.setStyleSheet(
-    "font-size: 27px;"+
+    "font-size: 22px;"+
     "color: 'white';"+
     "margin: 5px 100px;"
     )
@@ -122,8 +122,8 @@ def timeEntryFrame():
     "border: 2px solid '#ff0505';"+
     "border-radius: 10px;"+
     "padding: 2px 4px;"+
-    "margin: 1px 260px;"+
-    "background-color: 'white';"
+    "margin: 1px 60px;"+
+    "background-color: '#cec8c8';"
     )
     widgets["submittedTime"].append(submittedTime)
 
@@ -143,11 +143,11 @@ def startFrame():
     timeEntryButton.setStyleSheet(
     "*{border: 4px solid '#ff0505';"+
     "border-radius:15px;"+
-    "font-size: 27px;"+
+    "font-size: 22px;"+
     "margin: 20px 20px;"+
     "color: 'white'}"+
     "*:hover{background: '#ff0505';"+
-    "font-size: 30px;}"
+    "font-size: 22px;}"
     )
     widgets["timeEntryButton"].append(timeEntryButton)
 
@@ -157,11 +157,11 @@ def startFrame():
     leaderboard_button.setStyleSheet(
     "*{border: 4px solid '#ff0505';"+
     "border-radius:15px;"+
-    "font-size: 27px;"+
+    "font-size: 22px;"+
     "margin: 20px 20px;"+
     "color: 'white'}"+
     "*:hover{background: '#ff0505';"+
-    "font-size: 30px;}"
+    "font-size: 22px;}"
     )
     widgets["leaderboard_button"].append(leaderboard_button)
 
@@ -184,15 +184,15 @@ def scoreboardFrame():
 # Button widget to go back to entry frame. Not working atm...
     backButton = QPushButton("Back")
     backButton.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-    backButton.clicked.connect(show_timeEntryFrame)
+    backButton.clicked.connect(show_timeEntryFrame) ##### MAYBE I CAN WRITE A => function so i am able to write it to txt file immediately????? ---- nope, the solution was classes, something i should've learned before going into this
     backButton.setStyleSheet(
     "*{border: 4px solid '#ff0505';"+
     "border-radius:15px;"+
-    "font-size: 27px;"+
+    "font-size: 22px;"+
     "margin: 20px 100px;"+
     "color: 'white'}"+
     "*:hover{background: '#ff0505';"+
-    "font-size: 30px;}"
+    "font-size: 22px;}"
     )
     widgets["backButton"].append(backButton)
 
