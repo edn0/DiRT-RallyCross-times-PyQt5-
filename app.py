@@ -1,10 +1,11 @@
 import csv
 import sys
+import sqlite3
 from PyQt5.QtWidgets import QApplication, QLineEdit, QLabel, QPushButton, QVBoxLayout, QWidget, QFileDialog, QGridLayout, QComboBox
 from PyQt5.QtGui import QPixmap
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QCursor
-from data import trackList
+from data import trackList, dbTrackList
 
 widgets = {
     "logo": [],
@@ -18,6 +19,27 @@ widgets = {
     "leaderboard_button": [],
     "timeEntryButton": []
 }
+
+# // # TODO:
+# Figure out how to handle time conversion to seconds in order to store it as an int representing how many seconds the lap took, from the string input from the user.
+# Figure out how to pull the result and add it to db, then display it in the leaderboard, just like in BlindtestScore
+
+def checkDb():
+    con = sqlite3.connect("times.db")
+    cur = con.cursor()
+    cur.execute("select * from times")
+    search_results = cur.fetchall()
+    print(search_results)
+    con.close()
+
+con = sqlite3.connect("times.db")
+cur = con.cursor()
+cur.execute("create table if not exists times(circuit text, times text)")
+## cur.executemany("insert into times values (?, ?)", dbTrackList)
+con.commit()
+checkDb()
+con.close()
+
 
 input = ""
 
@@ -37,13 +59,17 @@ def clear_widgets():
         for i in range(0, len(widgets[widget])):
             widgets[widget].pop()
 
-
-def saveTime():
-    with open("times.csv", "w", newline="") as csvfile:
-        timeWriter = csv.writer(csvfile, delimiter=" ", quotechar="|", quoting=csv.QUOTE_MINIMAL)
-        timeWriter.writerow(["placeholder"])
-        timeWriter.writerow(["_________________"])
-        show_scoreboardFrame()
+# Function that will fetch data and write to the db
+def SQLSaveTime():
+    timeEntered = submittedTime.text()
+    print(timeEntered)
+    selectedTrack = trackCombobox.currentText()
+    print(selectedTrack)
+    con = sqlite3.connect("times.db")
+    cur = con.cursor()
+    cur.execute("update times set times=? where circuit=?", (timeEntered, selectedTrack))
+    con.commit()
+    con.close()
 
 def show_timeEntryFrame():
     clear_widgets()
@@ -54,6 +80,8 @@ def show_scoreboardFrame():
     scoreboardFrame()
 
 def timeEntryFrame():
+    global submittedTime
+    global trackCombobox
     # Display logo
     image = QPixmap("logo.png")
     logo = QLabel()
@@ -65,7 +93,7 @@ def timeEntryFrame():
     # Button widget
     button = QPushButton("Add time")
     button.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-    button.clicked.connect(saveTime)
+    button.clicked.connect(SQLSaveTime)
     button.setStyleSheet(
     "*{border: 2px solid '#ff0505';"+
     "border-radius:10px;"+
@@ -98,7 +126,8 @@ def timeEntryFrame():
     "padding: 2px 5px;"+
     "margin: 2px 10px;"+
     "selection-color: 'white';"+
-    "background-color: '#cec8c8';}"
+    "background-color: '#cec8c8';}"+
+    "*{background: '#cec8c8'}"
     )
     trackCombobox.setMaxVisibleItems(11)
     widgets["trackCombobox"].append(trackCombobox)

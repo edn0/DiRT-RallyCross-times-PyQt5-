@@ -13,3 +13,16 @@ trackList = [
     "Höljes, Sweden", #9
     "Yas Marina Circuit, Abu Dhabi" #10
     ]
+
+dbTrackList = [
+(trackList[0], "00:00"),
+(trackList[1], "00:00"),
+(trackList[2], "00:00"),
+(trackList[3], "00:00"),
+(trackList[4], "00:00"),
+(trackList[5], "00:00"),
+(trackList[6], "00:00"),
+(trackList[7], "00:00"),
+(trackList[8], "00:00"),
+(trackList[9], "00:00")
+]
